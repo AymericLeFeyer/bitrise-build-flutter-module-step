@@ -1,0 +1,118 @@
+format_version: 4
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+
+app:
+  envs:
+  # If you want to share this step into a StepLib
+  - BITRISE_STEP_ID: bitrise-build-flutter-module-step
+  - BITRISE_STEP_VERSION: "0.0.1"
+  - BITRISE_STEP_GIT_CLONE_URL: https://github.com/amardon/bitrise-build-flutter-module-step.git
+  - SAMPLE_APP_URL: https://github.com/amardon/sample_flutter_module.git
+  - ORIGIN_SOURCE_DIR: $BITRISE_SOURCE_DIR
+
+ 
+workflows:
+  ci:
+    before_run:
+    - audit-this-step
+    steps:
+    - go-list:
+    - golint:
+    - errcheck:
+    - go-test:
+    - flutter-installer:
+    after_run:
+      - test_ios_framework
+      - test_android_aar
+      - test_both
+  
+  test_ios_framework:
+    before_run:
+    - _clear_workdir
+    steps:
+    - script:
+        title: Clone sample app
+        inputs:
+        - content: git clone $SAMPLE_APP_URL -b manual .
+    - path::./:
+        inputs: 
+        - is_debug_mode: "true"
+        - platform: ios
+  
+  test_android_aar:
+    before_run:
+    - _clear_workdir
+    steps:
+    - script:
+        title: Clone sample app
+        inputs:
+        - content: git clone $SAMPLE_APP_URL .
+    - path::./:
+        inputs: 
+        - is_debug_mode: "true"
+        - platform: android
+  
+    
+  test_both:
+    before_run:
+    - _clear_workdir
+    steps:
+    - script:
+        title: Clone sample app
+        inputs:
+        - content: git clone $SAMPLE_APP_URL -b manual .
+    - path::./:
+        inputs:
+        - is_debug_mode: "true" 
+        - platform: both
+  
+  _clear_workdir:
+    envs:
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            cd ${ORIGIN_SOURCE_DIR}
+            rm -rf "./_tmp"
+            mkdir "_tmp"
+    - change-workdir:
+        title: Switch working dir to test / _tmp dir
+        description: |-
+          To prevent step testing issues, like referencing relative
+          files with just './some-file' in the step's code, which would
+          work for testing the step from this directory directly
+          but would break if the step is included in another `bitrise.yml`.
+        run_if: true
+        inputs:
+        - path: ${ORIGIN_SOURCE_DIR}/_tmp
+        - is_create_path: true
+  
+  # ----------------------------------------------------------------
+  # --- Utility workflows
+  dep-update:
+    title: Dep update
+    description: |
+      Used for updating bitrise dependencies with dep
+    steps:
+    - script:
+        title: Dependency update
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            dep ensure -v
+            dep ensure -v -update
+  
+  # ----------------------------------------------------------------
+  # --- workflows to Share this step into a Step Library
+  audit-this-step:
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            stepman audit --step-yml ./step.yml
+  
