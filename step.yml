@@ -13,9 +13,9 @@ summary: |
   Bitrise Build step for a flutter module, to generate a aar or ios framework build
 description: |
   Bitrise Build step for a flutter module, to generate a aar or ios framework build
-website: https://github.com/amardon/bitrise-build-flutter-module-step
-source_code_url: https://github.com/amardon/bitrise-build-flutter-module-step
-support_url: https://github.com/amardon/bitrise-build-flutter-module-step/issues
+website: https://github.com/dktunited/bitrise-build-flutter-module-step
+source_code_url: https://github.com/dktunited/bitrise-build-flutter-module-step
+support_url: https://github.com/dktunited/bitrise-build-flutter-module-step/issues
 host_os_tags:
   - osx-10.10
   - ubuntu-16.04
