@@ -6,7 +6,7 @@ app:
   # If you want to share this step into a StepLib
   - BITRISE_STEP_ID: bitrise-build-flutter-module-step
   - BITRISE_STEP_VERSION: "0.0.1"
-  - BITRISE_STEP_GIT_CLONE_URL: https://github.com/amardon/bitrise-build-flutter-module-step.git
+  - BITRISE_STEP_GIT_CLONE_URL: https://github.com/dktunited/bitrise-build-flutter-module-step.git
   - SAMPLE_APP_URL: https://github.com/amardon/sample_flutter_module.git
   - ORIGIN_SOURCE_DIR: $BITRISE_SOURCE_DIR
 

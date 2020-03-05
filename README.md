@@ -1,6 +1,7 @@
 # Bitrise Build Flutter module step
 
-Bitrise Build step for a flutter module, to generate a aar or ios framework build
+Bitrise Build step for a flutter module, to generate a .aar or iOS framework build
+
 
 
 ## How to use this Step
