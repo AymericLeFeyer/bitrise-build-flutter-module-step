@@ -68,7 +68,7 @@ inputs:
     opts:
       title: "Platform"
       summary: "The selected platform will be built, or both iOS and Android if you select both"
-      description: "The selected platform will be built, or both iOs and Android if you select both"
+      description: "The selected platform will be built, or both iOS and Android if you select both"
       is_required: true
       value_options:
         - "both"
