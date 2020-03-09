@@ -104,7 +104,7 @@ inputs:
   - web_output_pattern: "*web"
     opts:
       category: "Web Platform Configs"
-      title: "Output web directory"
+      title: "Output web directory. Warning: make sure your project and the Flutter version are compatible with Flutter Web"
       summary: Pattern to find generated web directory relative to $BITRISE\_SOURCE\_DIR
       description: |-
         Separate patterns with a newline.
