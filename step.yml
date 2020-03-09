@@ -101,7 +101,7 @@ inputs:
       description: |-
         Separate patterns with a newline.
       is_required: true
-  - web_output_pattern: "*web"
+  - web_output_pattern: "*build/web"
     opts:
       category: "Web Platform Configs"
       title: "Output web directory. Warning: make sure your project and the Flutter version are compatible with Flutter Web"

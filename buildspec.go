@@ -101,7 +101,7 @@ func (spec buildSpecification) exportAndroidArtifacts(artifacts []string, deploy
 }
 
 func (spec buildSpecification) exportWeb(artifacts []string, deployDir string) error {
-	artifact := artifacts[len(artifacts)-1]
+	artifact := artifacts[0]
 	fileName := filepath.Base(artifact)
 
 	if len(artifacts) > 1 {
