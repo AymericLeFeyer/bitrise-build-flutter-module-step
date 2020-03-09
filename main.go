@@ -68,7 +68,7 @@ func main() {
 			displayName:          "Web",
 			platformCmdFlag:      "web",
 			platformSelectors:    []string{"web"},
-			outputPathPatterns:   append(strings.Split(cfg.AndroidExportPattern, "\n")),
+			outputPathPatterns:   append(strings.Split(cfg.WebExportPattern, "\n")),
 		},
 	} {
 		if !spec.buildable(cfg.Platform) {
