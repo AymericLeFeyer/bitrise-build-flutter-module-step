@@ -34,6 +34,8 @@ func (spec buildSpecification) exportArtifacts(artifacts []string) error {
 		return spec.exportAndroidArtifacts(artifacts, deployDir)
 	case "ios-framework":
 		return spec.exportIOSFramework(artifacts, deployDir)
+	case "web":
+		return spec.exportWeb(artifacts, deployDir)
 	default:
 		return fmt.Errorf("unsupported platform for exporting artifacts: %s. Supported platforms: apk, appbundle, ios", spec.platformCmdFlag)
 	}
@@ -95,6 +97,27 @@ func (spec buildSpecification) exportAndroidArtifacts(artifacts []string, deploy
 
 	log.Donef("- " + singleFileOutputEnvName + ": " + deployedFiles[len(deployedFiles)-1])
 	log.Donef("- " + multipleFileOutputEnvName + ": " + strings.Join(deployedFiles, "|"))
+	return nil
+}
+
+func (spec buildSpecification) exportWeb(artifacts []string, deployDir string) error {
+	artifact := artifacts[len(artifacts)-1]
+	fileName := filepath.Base(artifact)
+
+	if len(artifacts) > 1 {
+		log.Warnf("- Multiple artifacts found: %v, exporting %s", artifacts, artifact)
+	}
+
+	if err := ziputil.ZipDir(artifact, filepath.Join(deployDir, fileName+".zip"), false); err != nil {
+		return err
+	}
+	log.Donef("- $BITRISE_DEPLOY_DIR/" + fileName + ".zip")
+
+	if err := tools.ExportEnvironmentWithEnvman("BITRISE_APP_DIR_PATH", artifact); err != nil {
+		return err
+	}
+	log.Donef("- $BITRISE_APP_DIR_PATH: " + artifact)
+
 	return nil
 }
 

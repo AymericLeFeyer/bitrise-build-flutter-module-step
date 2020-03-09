@@ -25,6 +25,7 @@ workflows:
       - test_ios_framework
       - test_android_aar
       - test_both
+      - test_web
   
   test_ios_framework:
     before_run:
@@ -51,6 +52,19 @@ workflows:
         inputs: 
         - is_debug_mode: "true"
         - platform: android
+
+  test_web:
+    before_run:
+    - _clear_workdir
+    steps:
+    - script:
+        title: Clone sample app
+        inputs:
+        - content: git clone $SAMPLE_APP_URL .
+    - path::./:
+        inputs: 
+        - is_debug_mode: "true"
+        - platform: web
   
     
   test_both:

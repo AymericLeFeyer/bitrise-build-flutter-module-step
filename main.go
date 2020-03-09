@@ -18,9 +18,10 @@ const (
 var flutterConfigPath = filepath.Join(os.Getenv("HOME"), ".flutter_settings")
 
 type config struct {
-	Platform                string              `env:"platform,opt[both,ios,android]"`
+	Platform                string              `env:"platform,opt[both,ios,android,web]"`
 	IOSExportPattern        string              `env:"ios_output_pattern,required"`
 	AndroidExportPattern    string              `env:"android_output_pattern,required"`
+	WebExportPattern    	string              `env:"web_output_pattern,required"`
 	ProjectLocation         string              `env:"project_location,dir"`
 	DebugMode               bool                `env:"is_debug_mode,opt[true,false]"`
 }
@@ -61,6 +62,12 @@ func main() {
 			displayName:          "Android",
 			platformCmdFlag:      "aar",
 			platformSelectors:    []string{"both", "android"},
+			outputPathPatterns:   append(strings.Split(cfg.AndroidExportPattern, "\n")),
+		},
+		{
+			displayName:          "Web",
+			platformCmdFlag:      "web",
+			platformSelectors:    []string{"web"},
 			outputPathPatterns:   append(strings.Split(cfg.AndroidExportPattern, "\n")),
 		},
 	} {

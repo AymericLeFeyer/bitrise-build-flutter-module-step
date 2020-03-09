@@ -74,6 +74,7 @@ inputs:
         - "both"
         - "ios"
         - "android"
+        - "web"
   - is_debug_mode: "false"
     opts:
       title: "Debug mode?"
@@ -100,6 +101,14 @@ inputs:
       description: |-
         Separate patterns with a newline.
       is_required: true
+  - web_output_pattern: "*web"
+    opts:
+      category: "Web Platform Configs"
+      title: "Output web directory"
+      summary: Pattern to find generated web directory relative to $BITRISE\_SOURCE\_DIR
+      description: |-
+        Separate patterns with a newline.
+      is_required: true
   
 outputs:
   - BITRISE_AAR_PATH:
@@ -114,4 +123,7 @@ outputs:
   - BITRISE_FRAMEWORK_PATH_LIST:
     opts:
       title: "List of the generated AAB file paths"
+  - BITRISE_WEB_DIRECTORY_PATH:
+    opts:
+      title: "List of the generated web directory"
   
