@@ -89,7 +89,7 @@ func main() {
 		var artifacts []string
 		var err error
 
-		if spec.platformCmdFlag == "aar" {
+		if spec.platformCmdFlag == "aar" || spec.platformCmdFlag == "web" {
 			artifacts, err = spec.artifactPaths(spec.outputPathPatterns, false)
 		} else {
 			artifacts, err = spec.artifactPaths(spec.outputPathPatterns, true)
