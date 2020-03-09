@@ -99,7 +99,7 @@ func main() {
 		}
 
 		log.Infof("will exportWeb")
-		log.Infof("will exportWeb " + len(artifacts))
+		log.Infof("will exportWeb %s", len(artifacts))
 
 		if err := spec.exportArtifacts(artifacts); err != nil {
 			failf("Failed to export %s artifacts, error: %s", spec.displayName, err)

@@ -102,7 +102,7 @@ func (spec buildSpecification) exportAndroidArtifacts(artifacts []string, deploy
 
 func (spec buildSpecification) exportWeb(artifacts []string, deployDir string) error {
 	log.Donef("exportWeb")
-	log.Donef("exportWeb " + len(artifacts))
+	log.Donef("exportWeb %s", len(artifacts))
 	artifact := artifacts[0]
 	fileName := filepath.Base(artifact)
 
