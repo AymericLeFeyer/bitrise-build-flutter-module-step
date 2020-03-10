@@ -105,23 +105,26 @@ func (spec buildSpecification) exportWeb(artifacts []string, deployDir string) e
 		failf("No artifact found")
 	}
 
-	artifact := artifacts[0]
-	fileName := filepath.Base(artifact)
+	var singleFileOutputEnvName string
+	var multipleFileOutputEnvName string
+	
+	multipleFileOutputEnvName = "BITRISE_WEB_DIRECTORY_PATH"
 
-	if len(artifacts) > 1 {
-		log.Warnf("- Multiple artifacts found: %v, exporting %s", artifacts, artifact)
+	var deployedFiles []string
+	for _, path := range artifacts {
+		deployedFilePath := filepath.Join(deployDir, filepath.Base(path))
+
+		if err := output.ExportOutputFile(path, deployedFilePath, singleFileOutputEnvName); err != nil {
+			return err
+		}
+		deployedFiles = append(deployedFiles, deployedFilePath)
+	}
+	if err := tools.ExportEnvironmentWithEnvman(multipleFileOutputEnvName, strings.Join(deployedFiles, "\n")); err != nil {
+		return fmt.Errorf("failed to export enviroment variable %s, error: %s", multipleFileOutputEnvName, err)
 	}
 
-	if err := ziputil.ZipDir(artifact, filepath.Join(deployDir, fileName+".zip"), false); err != nil {
-		return err
-	}
-	log.Donef("- $BITRISE_DEPLOY_DIR/" + fileName + ".zip")
-
-	if err := tools.ExportEnvironmentWithEnvman("BITRISE_WEB_DIRECTORY_PATH", artifact); err != nil {
-		return err
-	}
-	log.Donef("- $BITRISE_WEB_DIRECTORY_PATH: " + artifact)
-
+	log.Donef("- " + singleFileOutputEnvName + ": " + deployedFiles[len(deployedFiles)-1])
+	log.Donef("- " + multipleFileOutputEnvName + ": " + strings.Join(deployedFiles, "|"))
 	return nil
 }
 
