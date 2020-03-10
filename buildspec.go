@@ -44,10 +44,13 @@ func (spec buildSpecification) exportArtifacts(artifacts []string) error {
 func (spec buildSpecification) artifactPaths(outputPathPatterns []string, isDir bool) ([]string, error) {
 	var paths []string
 	for _, outputPathPattern := range outputPathPatterns {
+		log.Debugf("outputPathPattern searching : %s", outputPathPattern)
 		pths, err := findPaths(spec.projectLocation, outputPathPattern, isDir)
 		if err != nil {
 			return nil, err
 		}
+		log.Debugf("pths found : %s", len(pths))
+
 		paths = append(paths, pths...)
 	}
 	return paths, nil
