@@ -108,6 +108,7 @@ func (spec buildSpecification) exportWeb(artifacts []string, deployDir string) e
 	var singleFileOutputEnvName string
 	var multipleFileOutputEnvName string
 	
+	singleFileOutputEnvName = "BITRISE_WEB_DIRECTORY_PATH"
 	multipleFileOutputEnvName = "BITRISE_WEB_DIRECTORY_PATH"
 
 	var deployedFiles []string
