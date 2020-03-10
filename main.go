@@ -89,7 +89,7 @@ func main() {
 		var artifacts []string
 		var err error
 
-		if spec.platformCmdFlag == "aar" || spec.platformCmdFlag == "web" {
+		if spec.platformCmdFlag == "aar" {
 			artifacts, err = spec.artifactPaths(spec.outputPathPatterns, false)
 		} else {
 			artifacts, err = spec.artifactPaths(spec.outputPathPatterns, true)
@@ -98,8 +98,7 @@ func main() {
 			failf("failed to find artifacts, error: %s", err)
 		}
 
-		log.Infof("will exportWeb")
-		log.Infof("will exportWeb %s", len(artifacts))
+		log.Debugf("will exportWeb artifacts: %i", len(artifacts))
 
 		if err := spec.exportArtifacts(artifacts); err != nil {
 			failf("Failed to export %s artifacts, error: %s", spec.displayName, err)

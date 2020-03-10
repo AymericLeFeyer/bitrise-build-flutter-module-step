@@ -143,7 +143,7 @@ func findPaths(location string, outputPathPattern string, dir bool) (out []strin
 			return walkErr
 		}
 
-		log.Debugf("path : %s -- info.IsDir() : %s -- dir : %s", path, info.IsDir(), dir)
+//		log.Debugf("path : %s -- info.IsDir() : %s -- dir : %s", path, info.IsDir(), dir)
 		
 		if !info.IsDir() == dir || !glob.Glob(outputPathPattern, path) {
 			return nil
