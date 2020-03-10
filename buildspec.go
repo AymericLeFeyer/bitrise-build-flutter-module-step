@@ -108,8 +108,8 @@ func (spec buildSpecification) exportWeb(artifacts []string, deployDir string) e
 	if len(artifacts) < 1 {
 		failf("No artifact found")
 	}
-	var artifact = artifacts[0]
-	var fileName := filepath.Base(artifact)
+	artifact := artifacts[0]
+	fileName := filepath.Base(artifact)
 
 	if err := ziputil.ZipDir(artifact, filepath.Join(deployDir, fileName+".zip"), false); err != nil {
 		return err
