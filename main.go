@@ -69,7 +69,7 @@ func main() {
 			platformCmdFlag:      "web",
 			platformSelectors:    []string{"web"},
 			outputPathPatterns:   append(strings.Split(cfg.WebExportPattern, "\n")),
-			additionalParameters: "--pwa-strategy=none"
+			additionalParameters: "--pwa-strategy=none",
 		},
 	} {
 		if !spec.buildable(cfg.Platform) {
